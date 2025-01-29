@@ -29,4 +29,7 @@ public readonly struct SnapshotData
     {
         return await GetPage(SnapURL);
     }
+
+    public override string ToString() =>
+        $"{SourceURL}_{Timestamp}";
 }
