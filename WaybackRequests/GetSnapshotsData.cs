@@ -18,6 +18,13 @@ public class GetSnapshotsData
             .Split('\n')
             .Where(line => line != "")
             .Select(line => new SnapshotData(line))
+            .ToArray();
+    }
+
+    public static async Task<SnapshotData[]> GetAllValidSnapshotsDataFor(
+        string url, string from = null, string to = null)
+    {
+        return (await GetAllSnapshotsDataFor(url, from, to))
             .Where(s => s.IsSnapshotValid)
             .ToArray();
     }
