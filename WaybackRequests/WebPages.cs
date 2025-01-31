@@ -6,6 +6,16 @@ public static class WebPages
 
     public static async Task<string> GetPage(string url)
     {
-        return await HTTPClient.GetStringAsync(url);
+        while (true)
+        {
+            try
+            {
+                return await HTTPClient.GetStringAsync(url);
+            }
+            catch (HttpRequestException e)
+            {
+                continue;
+            }
+        }
     }
 }
