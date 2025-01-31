@@ -30,6 +30,13 @@ public readonly struct SnapshotData
         return await GetPage(SnapURL);
     }
 
+    public async Task GetAndSaveSnapshotContent()
+    {
+        await File.WriteAllTextAsync(
+            $@"{Program.SaveTo}\{this.ToValidFileName()}.html", 
+            await GetSnapshotContent());
+    }
+
     public override string ToString() =>
         $"{SourceURL}_{Timestamp}";
 }

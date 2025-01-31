@@ -5,26 +5,31 @@ using static GetSnapshotsData;
 
 public class Program
 {
-    static string saveTo = @"..\..\..\snapshots";
+    public static string SaveTo = @"..\..\..\snapshots";
 
     static Program()
     {
-        Directory.CreateDirectory(saveTo);
+        Directory.CreateDirectory(SaveTo);
     }
     
     public static async Task Main(string[] args)
     {
-        var url = "dotnet.microsoft.com/en-us/download";
-        var (from, to) = ("20240610", "20240611");
-        
-        var snapshotsData = await GetAllSnapshotsDataFor(url, from, to);
-        
-        foreach (var snapshotData in snapshotsData)
+        // пример команды:
+        // save_for dotnet.microsoft.com/en-us/download 20240610 20240611
+
+        while (true)
         {
-            var content = await snapshotData.GetSnapshotContent();
-            await File.WriteAllTextAsync(
-                $@"{saveTo}\{snapshotData.ToValidFileName()}.html", 
-                content);
+            var command = Console.ReadLine();
+            var parts = command!.Split();
+            if (parts.Length == 0)
+                continue;
+            if (parts[0] == "save_for")
+            {
+                var (url, from, to) = (parts[1], parts[2], parts[3]);
+                await SaveAllValidSnapshotsFor(url, from, to);
+            }
+            else if (parts[0] == "quit")
+                return;
         }
     }
 }

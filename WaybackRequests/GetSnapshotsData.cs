@@ -1,4 +1,3 @@
-
 namespace WaybackRequests;
 
 using static WebPages;
@@ -27,5 +26,25 @@ public class GetSnapshotsData
         return (await GetAllSnapshotsDataFor(url, from, to))
             .Where(s => s.IsSnapshotValid)
             .ToArray();
+    }
+
+    public static async Task SaveAllValidSnapshotsFor(
+        string url, string? from = null, string? to = null)
+    {
+        Console.WriteLine("Получение данных о наличии снимков...");
+        var snapshotsData = await GetAllValidSnapshotsDataFor(url, from, to);
+        Console.WriteLine($"{snapshotsData.Length} снимков обнаружено.");
+        
+        var progressBar = new ProgressBar(snapshotsData.Length);
+
+        async Task Save(SnapshotData snapshot)
+        {
+            await snapshot.GetAndSaveSnapshotContent();
+            progressBar.Add();
+        }
+        
+        Console.WriteLine("Запросы снимков и сохранение...");
+        await Task.WhenAll(
+            snapshotsData.Select(Save));
     }
 }
