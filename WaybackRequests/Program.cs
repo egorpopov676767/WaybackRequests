@@ -3,7 +3,7 @@ namespace WaybackRequests;
 
 using static GetSnapshotsData;
 
-public class Program
+public static class Program
 {
     public static string SaveTo = @"..\..\..\snapshots";
 

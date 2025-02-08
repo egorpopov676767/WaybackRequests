@@ -2,7 +2,7 @@ namespace WaybackRequests;
 
 using static WebPages;
 
-public class GetSnapshotsData
+public static class GetSnapshotsData
 {
     public static async Task<SnapshotData[]> GetAllSnapshotsDataFor(
         string url, string? from = null, string? to = null)

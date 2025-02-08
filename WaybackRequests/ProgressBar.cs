@@ -25,12 +25,12 @@ public class ProgressBar
 
     private void DrawBar()
     {
-        double progress = (double)_current / _total;
-        int filledLength = (int)(progress * _barSize);
+        var progress = (double)_current / _total;
+        var filledLength = (int)(progress * _barSize);
 
-        string filledPart = new string(Filled, filledLength);
-        string emptyPart = new string(Empty, _barSize - filledLength);
-        string percentage = progress.ToString("P0"); 
+        var filledPart = new string(Filled, filledLength);
+        var emptyPart = new string(Empty, _barSize - filledLength);
+        var percentage = progress.ToString("P0"); 
         
         Console.CursorLeft = 0;
         Console.Write($"\u2590{filledPart}{emptyPart}\u258c  {_current}/{_total} ({percentage})");

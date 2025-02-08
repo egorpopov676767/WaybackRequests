@@ -11,7 +11,6 @@ public readonly struct SnapshotData
     public readonly string ResponseCode;
     public readonly bool IsSnapshotValid;
     public readonly int ContentSize;
-    //public readonly string Content;
 
     public SnapshotData(string description)
     {

@@ -12,7 +12,7 @@ public static class WebPages
             {
                 return await HTTPClient.GetStringAsync(url);
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException)
             {
                 continue;
             }
